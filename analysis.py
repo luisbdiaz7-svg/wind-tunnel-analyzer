@@ -65,3 +65,18 @@ def print_lift_summary(alpha, cl0=0.10, lift_slope=0.11):
 #     solve_alpha(...)
 #
 # This feature has not been implemented yet.
+
+
+def alpha_residual(alpha, target_cl, cl0=0.10, lift_slope=0.11):
+    """Calculate the difference between actual and target lift coefficient."""
+    return cl0 + lift_slope * alpha - target_cl
+
+
+def solve_alpha(target_cl, cl0=0.10, lift_slope=0.11, initial_guess=0.0):
+    """Solve for the angle of attack required to achieve a target lift coefficient."""
+    solution = fsolve(
+        alpha_residual,
+        initial_guess,
+        args=(target_cl, cl0, lift_slope)
+    )
+    return float(solution[0])

@@ -14,6 +14,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
+CL0 = 0.10
+LIFT_SLOPE = 0.11
+
 from analysis import compute_cl, solve_alpha
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -34,6 +37,19 @@ def main():
     # Add code to compute the angle of attack required to achieve
     # a target lift coefficient using solve_alpha(...).
     # Print the result to the console.
+ 
+    # Set the target lift coefficient
+    target_cl = 0.80
+
+    # Solve for the required angle of attack
+    alpha_required = solve_alpha(
+        target_cl,
+        cl0=cl0,
+        lift_slope=lift_slope
+    )
+
+    print(f"Target lift coefficient: {target_cl:.3f}")
+    print(f"Required angle of attack: {alpha_required:.2f} deg")
 
     plt.show()
 
@@ -106,3 +122,5 @@ def plot_drag_curve(df):
 
 main()
 print("main.py ran successfully")
+
+
